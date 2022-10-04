@@ -95,9 +95,7 @@
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      console.log(this.get(1))
-
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 4; i++) { // fix later
         // console.log(this[i])
         var cnt = 0;
         // Look at each element of the inspected row in the matrix
@@ -120,11 +118,43 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      var subArray = [];
+      for (var i = 0; i < 4; i++) {
+        subArray.push(this.get(i))
+      }
+      var count = 0;
+      subArray.forEach(function (element) {
+        if (element[colIndex] === 1) {
+          count++;
+        }
+      })
+
+      if (count > 1) {
+        return true;
+      } else {
       return false; // fixme
+      }
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      // console.log(this._isInBounds(0,1))
+      for (var i = 0; i < 4; i++) { // loop through each row of matrix
+        for (var j = 0; j < this.get(i).length; j++) { // loop through each element
+          var cnt2 = 0; // count should set to 0 each time a new row is
+          if (this.get(i)[j] === 1) {
+            for (var k = 0; k < 4; k++) {
+              if (this.get(k)[j] === 1) {
+                cnt2++;
+              }
+            }
+
+            if (cnt2 > 1) {
+              return true;
+            }
+          }
+        }
+      }
       return false; // fixme
     },
 
