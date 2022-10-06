@@ -131,11 +131,12 @@
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
 
-      for (var i = 0; i < 4; i++) { // loop through each row of matrix
+      var board = this.rows();
+      for (var i = 0; i < board.length; i++) { // loop through each row of matrix
         for (var j = 0; j < this.get(i).length; j++) { // loop through each element
           var cnt2 = 0; // count should set to 0 each time a new row is
           if (this.get(i)[j] === 1) {
-            for (var k = 0; k < 4; k++) {
+            for (var k = 0; k < board.length; k++) {
               if (this.get(k)[j] === 1) {
                 cnt2++;
               }
@@ -333,11 +334,11 @@
       //   column++;
       // }
 
-      if (count > 1) {
-        return true;
-      }
+      // if (count > 1) {
+      //   return true;
+      // }
 
-      return false; // fixme
+      // return false; // fixme
     },
 
     // test if any minor diagonals on this board contain conflicts
