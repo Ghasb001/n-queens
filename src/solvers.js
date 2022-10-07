@@ -188,7 +188,6 @@ window.findNQueensSolution = function(n) {
 
       } else { // if there is no conflict then check the next row and column unless we're already on our row
         if (rows === n - 1 && cnt === n) { // && columns === n -
-          console.log('finished')
           return;
         }
         recurse(rows + 1, 0)
@@ -247,11 +246,69 @@ window.findNQueensSolution = function(n) {
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   var solutionCount = 0; //fixme
+  var board = new Board({n: n});
 
+  if (n === 0) {
+    return 1;
+  }
+  if (n === 2 || n === 3) {
+    return 0;
+  }
+
+  // loop through each row and column
+  // toggle each piece
+  // if there is conflict, untoggle
+  // call the function until it reaches the last row
+  //
+
+  // var count = 0;
+  // var recurse = function (rows, columns, cnt) {
+  //   for (var i = columns; i < board.attributes[rows].length; i++) { // loop through each column
+  //     board.togglePiece(rows, i) // toggle the piece
+  //     cnt++;
+  //     if (board.hasAnyQueensConflicts()) { // if there is a conflict then we want to toggle what we just toggled and move onto to the next col
+  //       board.togglePiece(rows, i)
+  //       cnt--;
+  //       continue
+
+  //     } else { // if there is no conflict then check the next row and column unless we're already on our row
+  //       if (rows === n - 1 && cnt === n) { // && columns === n -
+  //         solutionCount++;
+  //         cnt--;
+  //         console.log(board.attributes)
+  //       } else {
+  //         recurse(rows + 1, 0, cnt)
+  //         if (cnt !== n) {
+  //           board.togglePiece(rows, i) // if the recursive function does not work, it will kick back so we must toggle
+  //           cnt--;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  // recurse(0, 0, count)
 
 
   //if n is 0; return 1 per spec;
   //if n is 2 or 3, then return 0; they can't be solved no matter how hard we try
+
+  var recurse = function (row) {
+    if (row === n) {
+      solutionCount++;
+      console.log(board.attributes)
+      return;
+    }
+    for (var i = 0; i < n; i++) {
+      board.togglePiece(row, i)
+      if (!board.hasAnyQueensConflicts()) {
+        recurse(row + 1)
+      }
+      board.togglePiece(row, i)
+    }
+  }
+  recurse(0);
+
+
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
