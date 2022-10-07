@@ -79,7 +79,8 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      var current = this.get(rowIndex)
+      // var board = this.rows()
+      var current = this.get(rowIndex);
       var count = 0;
       for (var i = 0; i < current.length; i++) {
         if (current[i] === 1) {
@@ -113,7 +114,7 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-
+      var count = 0;
       var board = this.rows();
       for (var i = 0; i < board.length; i++) {
        if (board[i][colIndex]) {
@@ -182,14 +183,21 @@
         column++;
       }
 
-      // while (this._isInBounds(row, column)) {
-      //   if (board[row][column] === 1) {
-      //     count++;
-      //   }
+      if (count > 1) {
+        return true;
+      }
 
-      //   row++;
-      //   column++;
-      // }
+      var count = 0;
+      var row = 0;
+      var column = majorDiagonalColumnIndexAtFirstRow;
+      while (this._isInBounds(row, column)) {
+        if (board[row][column] === 1) {
+          count++;
+        }
+
+        row++;
+        column++;
+      }
 
       if (count > 1) {
         return true;
