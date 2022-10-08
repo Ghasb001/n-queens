@@ -288,10 +288,10 @@
 
       var board = this.rows();
       var count = 0;
-      var row = 3;
+      var row = board.length - 1;
       var column = minorDiagonalColumnIndexAtFirstRow;
       while (this._isInBounds(row, column)) {
-        if (board[column][row] === 1) {
+        if (board[row][column] === 1) {
           count++;
         }
 
@@ -303,22 +303,25 @@
       if (count > 1) {
         return true;
       }
-      return false;
 
       // var board = this.rows();
       // console.log(board)
-      // var count = 0;
-      // var row = 0;
-      // var column = minorDiagonalColumnIndexAtFirstRow;
-      // console.log(column);
-      // while (this._isInBounds(row, column)) {
-      //   if (board[row][column] === 1) {
-      //     count++;
-      //   }
+      var count = 0;
+      var row = 0;
+      var column = minorDiagonalColumnIndexAtFirstRow;
+      while (this._isInBounds(row, column)) {
+        if (board[row][column] === 1) {
+          count++;
+        }
 
-      //   row++;
-      //   column--;
-      // }
+        row++;
+        column--;
+      }
+
+      if (count > 1) {
+        return true;
+      }
+      return false;
 
       // if (column > 0) {
       //   row = 2;

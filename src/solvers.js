@@ -248,9 +248,9 @@ window.countNQueensSolutions = function(n) {
   var solutionCount = 0; //fixme
   var board = new Board({n: n});
 
-  if (n === 0) {
-    return 1;
-  }
+  // if (n === 0) {
+  //   return 1;
+  // }
   if (n === 2 || n === 3) {
     return 0;
   }
@@ -295,21 +295,25 @@ window.countNQueensSolutions = function(n) {
   var recurse = function (row) {
     if (row === n) {
       solutionCount++;
-      console.log(board.attributes)
+      var solution = [];
+      for (var j = 0; j < board.attributes.n; j++) {
+        solution.push(board.attributes[j].slice()); // [[0, 0, 0, 0], [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+      }
+      console.log(solution)
       return;
     }
     for (var i = 0; i < n; i++) {
       board.togglePiece(row, i)
       if (!board.hasAnyQueensConflicts()) {
-        recurse(row + 1)
+        recurse(row + 1);
       }
       board.togglePiece(row, i)
     }
   }
   recurse(0);
 
-
-
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  console.log(solutionCount)
   return solutionCount;
+
 };
